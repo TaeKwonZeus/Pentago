@@ -5,5 +5,10 @@ namespace Engine
         IEvaluation Evaluate(IPosition position);
 
         IMove BestMove(IPosition position);
+
+        static IEngine Instance()
+        {
+            return null;
+        }
     }
 }
