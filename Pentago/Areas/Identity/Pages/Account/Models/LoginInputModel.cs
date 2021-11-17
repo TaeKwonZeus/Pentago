@@ -4,8 +4,7 @@ namespace Pentago.Areas.Identity.Pages.Account.Models
 {
     public class LoginInputModel
     {
-        [Required]
-        public string Username { get; set; }
+        [Required] public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

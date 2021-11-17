@@ -5,7 +5,7 @@ namespace Engine
     public interface IPosition
     {
         List<Square> Board { get; }
-        
+
         Color ToMove { get; }
     }
 }
