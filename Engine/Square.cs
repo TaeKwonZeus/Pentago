@@ -31,6 +31,8 @@ namespace Engine
                 _y = value;
             }
         }
+        
+        public Quadrant Quadrant { get; }
 
         public Color? State { get; set; }
 
@@ -43,6 +45,9 @@ namespace Engine
             _y = y;
 
             State = state;
+            
+            // TODO Get the square's quadrant based on its X and Y coordinates
+            Quadrant = Quadrant.First;
         }
     }
 }
