@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pentago.Areas.Identity.Pages.Account.Models;
 using Pentago.Data;
 
 namespace Pentago

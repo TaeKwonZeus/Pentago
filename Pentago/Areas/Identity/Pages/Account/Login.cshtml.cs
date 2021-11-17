@@ -17,28 +17,22 @@ namespace Pentago.Areas.Identity.Pages.Account
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly ILogger<LoginModel> _logger;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
 
         public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<IdentityUser> userManager, ApplicationDbContext applicationDbContext)
         {
-            _userManager = userManager;
             _applicationDbContext = applicationDbContext;
             _signInManager = signInManager;
             _logger = logger;
         }
 
-        [BindProperty] public LoginInputModel Input { get; set; }
+        [BindProperty] public LoginInputModel Input { get; set; } = new();
 
-        public string ReturnUrl { get; set; }
-
-        [TempData] public string ErrorMessage { get; set; }
+        public string ReturnUrl { get; private set; }
 
         public void OnGet(string returnUrl = null)
         {
-            if (!string.IsNullOrEmpty(ErrorMessage)) ModelState.AddModelError(string.Empty, ErrorMessage);
-
             returnUrl ??= Url.Content("~/");
 
             ReturnUrl = returnUrl;
@@ -50,7 +44,7 @@ namespace Pentago.Areas.Identity.Pages.Account
 
             if (!ModelState.IsValid) return Page();
 
-            var result = await _signInManager.PasswordSignInAsync(GetUsername(Input.Username), 
+            var result = await _signInManager.PasswordSignInAsync(GetUsername(Input.Username),
                 Input.Password, Input.RememberMe, false);
 
             if (result.Succeeded)
