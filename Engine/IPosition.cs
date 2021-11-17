@@ -6,6 +6,6 @@ namespace Engine
     {
         List<Square> Board { get; }
         
-        
+        Color ToMove { get; }
     }
 }
