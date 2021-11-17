@@ -47,7 +47,7 @@ namespace Pentago.Areas.Identity.Pages.Account
             
             if (!ModelState.IsValid) return Page();
 
-            var user = new User {UserName = Input.Username, Email = Input.Email, Elo = 800};
+            var user = new IdentityUser {UserName = Input.Username, Email = Input.Email};
 
             var result = await _userManager.CreateAsync(user, Input.Password);
 
