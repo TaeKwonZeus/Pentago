@@ -11,20 +11,9 @@
 <body>
 <header>
     <nav>
-        <div>
-            <a asp-area="" asp-page="/Index">Pentago</a>
-            <button type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-            </button>
-            <div>
-                <ul>
-                    <li>
-                        <a asp-area="" asp-page="/Play">Play</a>
-                    </li>
-                </ul>
-                <partial name="_LoginPartial"/>
-            </div>
-        </div>
+        <a asp-page="/Index">Pentago</a>
+        <a asp-page="/Play">Play</a>
+        <partial name="_LoginPartial"/>
     </nav>
 </header>
 <div>

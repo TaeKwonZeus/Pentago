@@ -2,8 +2,8 @@ namespace Engine
 {
     public class Evaluation
     {
-        private int? _mateIn;
         private double? _eval;
+        private int? _mateIn;
 
         public double? Eval
         {
