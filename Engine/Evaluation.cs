@@ -3,7 +3,7 @@ namespace Engine
     public class Evaluation
     {
         private double? _eval;
-        private int? _mateIn;
+        private int? _winIn;
 
         public double? Eval
         {
@@ -13,18 +13,18 @@ namespace Engine
                 if (value == null) return;
 
                 _eval = value;
-                _mateIn = null;
+                _winIn = null;
             }
         }
 
         public int? MateIn
         {
-            get => _mateIn;
+            get => _winIn;
             set
             {
                 if (value == null) return;
 
-                _mateIn = value;
+                _winIn = value;
                 _eval = null;
             }
         }
@@ -32,7 +32,7 @@ namespace Engine
         public override string ToString()
         {
             if (_eval != null) return _eval.ToString();
-            if (_mateIn != null) return $"#{_mateIn}";
+            if (_winIn != null) return $"#{_winIn}";
 
             return "-";
         }
