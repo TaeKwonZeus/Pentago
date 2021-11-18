@@ -10,12 +10,14 @@
 </head>
 <body>
 <header>
-    <nav>
+    <nav class="main-nav">
         <div>
-            <a asp-page="/Index">Pentago</a>
-        </div>
-        <div>
-            <a asp-page="/Play">Play</a>
+            <div class="nav-element">
+                <a asp-page="/Index">Pentago</a>
+            </div>
+            <div class="nav-element">
+                <a asp-page="/Play">Play</a>
+            </div>
         </div>
         <partial name="_LoginPartial"/>
     </nav>
