@@ -44,7 +44,7 @@ namespace Pentago.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            
+
             if (!ModelState.IsValid) return Page();
 
             var user = new IdentityUser {UserName = Input.Username, Email = Input.Email};
@@ -56,9 +56,9 @@ namespace Pentago.Areas.Identity.Pages.Account
                 _logger.LogInformation("User created a new account with password");
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                
+
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                
+
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     null,
@@ -72,7 +72,7 @@ namespace Pentago.Areas.Identity.Pages.Account
                     return RedirectToPage("RegisterConfirmation", new {email = Input.Email, returnUrl});
 
                 await _signInManager.SignInAsync(user, false);
-                
+
                 return LocalRedirect(returnUrl);
             }
 
