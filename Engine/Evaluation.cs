@@ -17,7 +17,7 @@ namespace Engine
             }
         }
 
-        public int? MateIn
+        public int? WinIn
         {
             get => _winIn;
             set
