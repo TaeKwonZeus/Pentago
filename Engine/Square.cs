@@ -36,7 +36,7 @@ namespace Engine
 
         public Color? State { get; set; }
 
-        public Square(int x, int y, Color? state)
+        public Square(int x, int y, Color? state = null)
         {
             if (x > 5 || y > 5)
                 throw new IndexOutOfRangeException("Arguments must be between 0 and 5 inclusive.");
