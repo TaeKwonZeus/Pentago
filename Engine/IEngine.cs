@@ -2,9 +2,9 @@ namespace Engine
 {
     public interface IEngine
     {
-        IEvaluation Evaluate(IPosition position);
+        Evaluation Evaluate(Position position);
 
-        IMove BestMove(IPosition position);
+        Move BestMove(Position position);
 
         static IEngine Instance() => null;
     }
