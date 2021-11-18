@@ -6,13 +6,17 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Pentago</title>
-    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="css/site.css"/>
 </head>
 <body>
 <header>
     <nav>
-        <a asp-page="/Index">Pentago</a>
-        <a asp-page="/Play">Play</a>
+        <div>
+            <a asp-page="/Index">Pentago</a>
+        </div>
+        <div>
+            <a asp-page="/Play">Play</a>
+        </div>
         <partial name="_LoginPartial"/>
     </nav>
 </header>
@@ -21,15 +25,11 @@
         @RenderBody()
     </main>
 </div>
-
 <footer>
     <div>
         &copy; 2021 - Pentago - <a asp-area="" asp-page="/Privacy">Privacy</a>
     </div>
 </footer>
-
-<script src="~/js/site.js" asp-append-version="true"></script>
-
 @await RenderSectionAsync("Scripts", false)
 </body>
 </html>
