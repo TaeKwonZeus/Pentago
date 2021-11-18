@@ -32,7 +32,7 @@ namespace Pentago.Areas.Identity.Pages.Account
             _emailSender = emailSender;
         }
 
-        [BindProperty] public RegisterInputModel Input { get; set; } = new();
+        [BindProperty] public RegisterInputModel Input { get; set; } = new RegisterInputModel();
 
         public string ReturnUrl { get; private set; }
 

@@ -27,7 +27,7 @@ namespace Pentago.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        [BindProperty] public LoginInputModel Input { get; set; } = new();
+        [BindProperty] public LoginInputModel Input { get; set; } = new LoginInputModel();
 
         public string ReturnUrl { get; private set; }
 
