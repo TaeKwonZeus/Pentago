@@ -6,6 +6,9 @@ namespace Engine
 
         Move BestMove(Position position);
 
-        static IEngine Instance() => null;
+        static IEngine Instance()
+        {
+            return null;
+        }
     }
 }
