@@ -10,8 +10,8 @@ namespace Engine
             ToMove = toMove;
         }
 
-        List<Square> Board { get; }
+        private List<Square> Board { get; }
 
-        Color ToMove { get; }
+        private Color ToMove { get; }
     }
 }

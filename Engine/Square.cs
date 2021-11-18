@@ -36,7 +36,7 @@ namespace Engine
 
         public Color? State { get; set; }
 
-        public Square(int x, int y, Color? state = null)
+        public Square(int x, int y, Quadrant quadrant, Color? state = null)
         {
             if (x > 5 || y > 5)
                 throw new IndexOutOfRangeException("Arguments must be between 0 and 5 inclusive.");
@@ -45,9 +45,7 @@ namespace Engine
             _y = y;
 
             State = state;
-
-            // TODO Get the square's quadrant based on its X and Y coordinates
-            Quadrant = Quadrant.First;
+            Quadrant = quadrant;
         }
     }
 }
