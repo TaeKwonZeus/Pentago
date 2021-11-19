@@ -4,20 +4,12 @@
 <div>
     @if (_signInManager.IsSignedIn(User))
     {
-        <div class="login-button nav-element">
-            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity!.Name</a>
-        </div>
-        <div class="login-button nav-element">
-            <a asp-area="Identity" asp-page="/Account/Logout">Logout</a>
-        </div>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="hover-highlight">Hello @User.Identity!.Name</a>
+        <a asp-area="Identity" asp-page="/Account/Logout" class="hover-highlight">Logout</a>
     }
     else
     {
-        <div class="login-button nav-element">
-            <a asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </div>
-        <div class="login-button nav-element">
-            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </div>
+        <a asp-area="Identity" asp-page="/Account/Register" class="hover-highlight">Register</a>
+        <a asp-area="Identity" asp-page="/Account/Login" class="hover-highlight">Login</a>
     }
 </div>

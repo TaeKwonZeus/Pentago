@@ -29,10 +29,15 @@ html, body {
     align-self: flex-end;
 }
 
-.main-nav .nav-element {
-    display: inline-block;
+.hover-highlight:hover {
+    background-color: lightgray;
 }
 
-.main-nav .nav-element:hover {
-    background-color: lightgray;
+.main-icon {
+    height: 44px;
+    width: auto;
+}
+
+.main-icon-link {
+    padding: 0.5em !important;
 }
