@@ -10,11 +10,11 @@ html, body {
     flex-wrap: wrap;
     max-width: 960px;
     margin: 0 auto 10px;
-    color: black;
 }
 
 .main-nav a {
     text-decoration: none;
+    color: black;
     display: inline-block;
     padding: 1em 0.5em;
     font-size: 20px;
