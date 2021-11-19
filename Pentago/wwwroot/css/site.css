@@ -6,6 +6,7 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: system-ui, Cantarell, Roboto, sans-serif;
+    background-color: #f8f9fa;
 }
 
 .grid {
@@ -63,7 +64,7 @@ header nav a:visited {
 
 footer {
     padding: 30px;
-    background-color: whitesmoke;
+    background-color: #e6e7e8;
     font-size: 20px;
     border-top: 1px solid lightgray;
     grid-column: 1 / 4;
