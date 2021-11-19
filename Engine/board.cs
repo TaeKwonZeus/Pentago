@@ -2,7 +2,7 @@ namespace Engine
 {
     public class Board
     {
-        private int[6][6];
+        private int[][] board = new int[6][];
         
         public Board()
         {
