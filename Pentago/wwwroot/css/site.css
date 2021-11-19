@@ -34,10 +34,6 @@ html, body {
 }
 
 .main-icon {
-    height: 44px;
+    height: 20px;
     width: auto;
-}
-
-.main-icon-link {
-    padding: 0.5em !important;
 }
