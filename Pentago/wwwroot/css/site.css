@@ -45,3 +45,14 @@ header nav a:visited {
 .logo-link {
     padding: 0.5em;
 }
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 30px;
+    background-color: whitesmoke;
+    font-size: 20px;
+    border-top: 1px solid lightgray;
+}
