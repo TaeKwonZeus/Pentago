@@ -3,16 +3,17 @@ html, body {
     font-family: sans-serif;
 }
 
-.main-nav {
+header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    max-width: 960px;
+    max-width: 1280px;
     margin: 0 auto 10px;
+    border-bottom: 1px solid lightgray;
 }
 
-.main-nav a {
+header nav a {
     text-decoration: none;
     color: black;
     display: inline-block;
@@ -20,12 +21,12 @@ html, body {
     font-size: 20px;
 }
 
-.main-nav a:visited {
+header nav a:visited {
     text-decoration: none;
     color: black;
 }
 
-.main-nav .login-button {
+.login-button {
     align-self: flex-end;
 }
 
@@ -33,7 +34,12 @@ html, body {
     background-color: lightgray;
 }
 
-.main-icon {
-    height: 20px;
+.logo {
+    height: 44px;
     width: auto;
+    display: block;
+}
+
+.logo-link {
+    padding: 0.5em;
 }

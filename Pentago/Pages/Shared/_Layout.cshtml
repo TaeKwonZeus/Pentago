@@ -10,12 +10,12 @@
 </head>
 <body>
 <header>
-    <nav class="main-nav">
+    <nav>
+        <a asp-page="/Index" class="logo-link">
+            <img src="icon.png" alt="" class="logo"/>
+        </a>
         <div>
-            <a asp-page="/Index" class="main-icon-link">
-                <img src="icon.png" alt="" class="main-icon"/>
-            </a>
-            <a asp-page="/Index" class="hover-highlight">Home</a>
+            <a asp-page="/Index" class="hover-highlight">Pentago</a>
             <a asp-page="/Play" class="hover-highlight">Play</a>
         </div>
         <partial name="_LoginPartial"/>
