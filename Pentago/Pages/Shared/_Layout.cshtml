@@ -9,28 +9,26 @@
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
-<div class="grid">
-    <header>
-        <nav>
-            <a asp-page="/Index" class="logo-link">
-                <img src="~/icon.png" alt="" class="logo"/>
-            </a>
-            <div>
-                <a asp-page="/Index" class="hover-highlight">Home</a>
-                <a asp-page="/Play" class="hover-highlight">Play</a>
-            </div>
-            <partial name="_LoginPartial"/>
-        </nav>
-    </header>
-    <main>
-        @RenderBody()
-    </main>
-    <footer>
+<header>
+    <nav>
+        <a asp-page="/Index" class="logo-link">
+            <img src="~/icon.png" alt="" class="logo"/>
+        </a>
         <div>
-            &copy; 2021 - Pentago
+            <a asp-page="/Index" class="hover-highlight">Home</a>
+            <a asp-page="/Play" class="hover-highlight">Play</a>
         </div>
-    </footer>
-    @await RenderSectionAsync("Scripts", false)
-</div>
+        <partial name="_LoginPartial"/>
+    </nav>
+</header>
+<main>
+    @RenderBody()
+</main>
+<footer>
+    <div>
+        &copy; 2021 - Pentago
+    </div>
+</footer>
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
