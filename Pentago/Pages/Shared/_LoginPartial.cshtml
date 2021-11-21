@@ -1,7 +1,7 @@
 @inject SignInManager<IdentityUser> _signInManager
 @inject UserManager<IdentityUser> _userManager
 
-<div>
+<nav class="header-navbar">
     @if (_signInManager.IsSignedIn(User))
     {
         <a asp-area="Identity" asp-page="/Account/Manage/Index" class="hover-highlight">Hello @User.Identity!.Name</a>
@@ -12,4 +12,4 @@
         <a asp-area="Identity" asp-page="/Account/Register" class="hover-highlight">Register</a>
         <a asp-area="Identity" asp-page="/Account/Login" class="hover-highlight">Login</a>
     }
-</div>
+</nav>

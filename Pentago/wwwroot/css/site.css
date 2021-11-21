@@ -8,49 +8,50 @@ html, body {
 }
 
 header {
-    grid-column: 1 / 4;
-    grid-row: 1;
+    height: auto;
 }
 
-header nav {
+.container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     max-width: 1280px;
     margin: 0 auto 10px;
+    padding-bottom: 2px;
     border-bottom: 1px solid lightgray;
 }
 
-header nav a {
+.container div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.header-navbar a {
     text-decoration: none;
     color: black;
-    display: inline-block;
-    padding: 1em 0.5em;
     font-size: 20px;
+    padding: 20px 10px;
 }
 
-header nav a:visited {
+.header-navbar a:visited {
     text-decoration: none;
     color: black;
-}
-
-.login-button {
-    align-self: flex-end;
 }
 
 .hover-highlight:hover {
     background-color: lightgray;
 }
 
-.logo {
-    height: 44px;
-    width: auto;
-    display: block;
+.header-link {
+    display: inline-block;
 }
 
-.logo-link {
-    padding: 0.5em;
+.logo {
+    display: block;
+    height: 40px;
+    padding: 10px;
 }
 
 footer {

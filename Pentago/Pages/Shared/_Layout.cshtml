@@ -10,16 +10,20 @@
 </head>
 <body>
 <header>
-    <nav>
-        <a asp-page="/Index" class="logo-link">
-            <img src="~/icon.png" alt="" class="logo"/>
-        </a>
+    <div class="container">
         <div>
-            <a asp-page="/Index" class="hover-highlight">Home</a>
-            <a asp-page="/Play" class="hover-highlight">Play</a>
+            <a asp-page="/Index" class="logo-link">
+                <img src="~/icon.png" alt="" class="logo"/>
+            </a>
+            <nav class="header-navbar">
+                <a asp-page="/Index" class="hover-highlight">Home</a>
+                <a asp-page="/Play" class="hover-highlight">Play</a>
+            </nav>
         </div>
-        <partial name="_LoginPartial"/>
-    </nav>
+        <div>
+            <partial name="_LoginPartial"/>
+        </div>
+    </div>
 </header>
 <main>
     @RenderBody()
