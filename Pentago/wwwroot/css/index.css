@@ -1,0 +1,24 @@
+.grid {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-auto-rows: minmax(0, auto);
+}
+
+.main-link {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    width: 100px;
+    height: 100px;
+    background-color: #c6c7c8;
+}
+
+a {
+    color: #575757;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}

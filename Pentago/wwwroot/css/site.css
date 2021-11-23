@@ -7,10 +7,6 @@ html, body {
     background-color: #f8f9fa;
 }
 
-header {
-    height: auto;
-}
-
 .container {
     display: flex;
     justify-content: space-between;
@@ -65,4 +61,8 @@ footer {
 
 footer div {
     padding: 30px;
+}
+
+main {
+    padding: 0 20px;
 }
