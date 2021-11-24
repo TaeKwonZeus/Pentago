@@ -11,24 +11,15 @@ namespace Pentago.Data
         {
         }
 
-        /*
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<ApplicationUser>(b =>
-            {
-                b.HasKey(u => u.Id);
+            base.OnModelCreating(builder);
 
-                b.HasIndex(u => u.NormalizedUserName).HasDatabaseName("UserNameIndex").IsUnique();
-                b.HasIndex(u => u.NormalizedEmail).HasDatabaseName("EmailIndex");
-
-                b.ToTable("Users");
-
-                b.Property(u => u.UserName).HasMaxLength(256);
-                b.Property(u => u.NormalizedUserName).HasMaxLength(256);
-                b.Property(u => u.Email).HasMaxLength(256);
-                b.Property(u => u.NormalizedEmail).HasMaxLength(256);
-            });
+            builder.Entity<ApplicationUser>().ToTable("Users");
+            builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("Logins");
+            builder.Entity<IdentityUserClaim<string>>().ToTable("Claims");
+            builder.Entity<IdentityRole>().ToTable("Roles");
         }
-        */
     }
 }

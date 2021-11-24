@@ -27,8 +27,6 @@ namespace Pentago
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddScoped<UserManager<ApplicationUser>>();
-            services.AddScoped<SignInManager<ApplicationUser>>();
             services.AddRazorPages();
             services.AddRouting(options => { options.LowercaseUrls = true; });
         }
