@@ -16,11 +16,10 @@ namespace Pentago.Areas.Identity.Pages.Account
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly ILogger<LoginModel> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager,
-            ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager, ApplicationDbContext applicationDbContext)
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
+            ILogger<LoginModel> logger, ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
             _signInManager = signInManager;

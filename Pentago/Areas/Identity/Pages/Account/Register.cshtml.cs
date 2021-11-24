@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Pentago.Areas.Identity.Pages.Account.Models;
+using Pentago.Data;
 
 namespace Pentago.Areas.Identity.Pages.Account
 {
@@ -17,12 +18,12 @@ namespace Pentago.Areas.Identity.Pages.Account
     {
         private readonly IEmailSender _emailSender;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -47,7 +48,7 @@ namespace Pentago.Areas.Identity.Pages.Account
 
             if (!ModelState.IsValid) return Page();
 
-            var user = new IdentityUser {UserName = Input.Username, Email = Input.Email};
+            var user = new ApplicationUser {UserName = Input.Username, Email = Input.Email, Elo = 800};
 
             var result = await _userManager.CreateAsync(user, Input.Password);
 

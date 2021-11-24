@@ -1,5 +1,5 @@
-@inject SignInManager<IdentityUser> _signInManager
-@inject UserManager<IdentityUser> _userManager
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
 
 <nav class="header-navbar">
     @if (_signInManager.IsSignedIn(User))
