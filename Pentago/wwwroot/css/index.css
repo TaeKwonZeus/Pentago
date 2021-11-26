@@ -1,24 +1,31 @@
-.grid {
-    display: grid;
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.links {
+    display: flex;
     align-items: center;
     justify-content: center;
-    grid-auto-rows: minmax(0, auto);
 }
 
-.main-link {
+.links div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.links div a {
     font-size: 25px;
-    font-weight: 600;
-    text-align: center;
-    width: 100px;
-    height: 100px;
-    background-color: #c6c7c8;
-}
-
-a {
-    color: #575757;
     text-decoration: none;
+    color: black;
+    background-color: #dfe0e1;
+    padding: 1em;
+    border-radius: 10px;
 }
 
-a:hover {
-    color: black;
+.links div a:hover {
+    background-color: lightgray;
 }
