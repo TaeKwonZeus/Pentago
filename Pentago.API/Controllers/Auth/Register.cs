@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pentago.API.Data;
 using Pentago.API.Data.Models;
 
@@ -20,24 +21,33 @@ namespace Pentago.API.Controllers.Auth
         }
 
         [HttpPost]
-        public async Task<User> Post(Model model)
+        public async Task<string> Post([FromBody] Model model)
         {
             var (username, email, password) = model;
+
+            var apiKey = Guid.NewGuid().ToString();
+            
             var user = new User
             {
                 Username = username,
                 NormalizedUsername = username.Normalize(),
                 Email = email,
                 PasswordHash = Sha256Hash(password),
-                ApiKeyHash = Sha256Hash(Guid.NewGuid().ToString()),
+                ApiKeyHash = Sha256Hash(apiKey),
                 GlickoRating = 800,
                 GlickoRd = 350
             };
 
+            if (await _dbContext.Users.AnyAsync(u => u.Email == email || u.NormalizedUsername == username.Normalize()))
+            {
+                HttpContext.Response.StatusCode = 409;
+                return "Account with this username or email already exists";
+            }
+            
             await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
 
-            return user;
+            return apiKey;
         }
 
         private static string Sha256Hash(string value)
