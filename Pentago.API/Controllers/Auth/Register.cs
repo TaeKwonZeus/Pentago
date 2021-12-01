@@ -10,7 +10,7 @@ using Pentago.API.Data.Models;
 
 namespace Pentago.API.Controllers.Auth
 {
-    [Route("[controller]")]
+    [Route("/auth/[controller]")]
     public class Register : Controller
     {
         private readonly ApplicationDbContext _dbContext;
