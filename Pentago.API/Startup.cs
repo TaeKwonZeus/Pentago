@@ -28,6 +28,7 @@ namespace Pentago.API
             });
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=app.db"));
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +46,9 @@ namespace Pentago.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(options => options.WithOrigins("https://localhost:5001")
+                .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
