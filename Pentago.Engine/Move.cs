@@ -2,17 +2,17 @@ namespace Pentago.Engine
 {
     public class Move
     {
-        public Move(Color color, Square placedPiece, Quadrant rotatedQuadrant, bool rotatedRight)
+        public Move(Color color, Square placedPiece, int rotateIndex, bool clockwise)
         {
             Color = color;
             PlacedPiece = placedPiece;
-            RotatedQuadrant = rotatedQuadrant;
-            RotatedRight = rotatedRight;
+            Clockwise = clockwise;
+            RotateIndex = rotateIndex;
         }
 
         public Color Color { get; }
         public Square PlacedPiece { get; }
-        public Quadrant RotatedQuadrant { get; }
-        public bool RotatedRight { get; }
+        public int RotateIndex { get; }
+        public bool Clockwise { get; }
     }
 }

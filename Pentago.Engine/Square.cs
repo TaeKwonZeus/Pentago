@@ -32,22 +32,32 @@ namespace Pentago.Engine
             }
         }
 
-        public Quadrant Quadrant { get; }
-
         public Color? State { get; set; }
+        
+        public void Rotate(bool clockwise)
+        {
+            var x = _x;
+            var y = _y;
+            if (clockwise)
+            {
+                _x += ((x % 3)-1) + ((x + -y)*-1);
+                _y += ((y % 3)-1) + ((x + y)*-1);
+            }
+            else
+            {
+                _x += ((x % 3)-1) + ((x + y)*-1);
+                _y += ((y % 3)-1) + ((-x + y)*-1);
+            }
+        }
 
         public Square(int x, int y, Color? state = null)
         {
             if (x > 5 || y > 5)
                 throw new IndexOutOfRangeException("Arguments must be between 0 and 5 inclusive.");
-
             _x = x;
             _y = y;
 
             State = state;
-
-            // TODO Get the square's quadrant based on its X and Y coordinates
-            Quadrant = Quadrant.First;
         }
     }
 }
