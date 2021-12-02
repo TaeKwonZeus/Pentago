@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Publish
-        run: dotnet publish -c Release --no-build -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       - name: Deploy
         uses: azure/webapps-deploy@v2
         with:
