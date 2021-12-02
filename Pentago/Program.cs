@@ -1,3 +1,4 @@
+using Engine;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,6 +8,7 @@ namespace Pentago
     {
         public static void Main(string[] args)
         {
+            var board = new Board();
             CreateHostBuilder(args).Build().Run();
         }
 
