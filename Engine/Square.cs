@@ -34,19 +34,19 @@ namespace Engine
 
         public Color? State { get; set; }
         
-        private void Rotate(ref Square square, bool clockwise)
+        public void Rotate(bool clockwise)
         {
-            var x = square.X;
-            var y = square.Y;
+            var x = _x;
+            var y = _y;
             if (clockwise)
             {
-                square.X += ((x % 3)-1) + ((x + -y)*-1);
-                square.Y += ((y % 3)-1) + ((x + y)*-1);
+                _x += ((x % 3)-1) + ((x + -y)*-1);
+                _y += ((y % 3)-1) + ((x + y)*-1);
             }
             else
             {
-                square.X += ((x % 3)-1) + ((x + y)*-1);
-                square.Y += ((y % 3)-1) + ((-x + y)*-1);
+                _x += ((x % 3)-1) + ((x + y)*-1);
+                _y += ((y % 3)-1) + ((-x + y)*-1);
             }
         }
 

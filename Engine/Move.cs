@@ -2,15 +2,17 @@ namespace Engine
 {
     public class Move
     {
-        public Move(Color color, Square placedPiece, bool rotatedRight)
+        public Move(Color color, Square placedPiece, int rotateIndex, bool clockwise)
         {
             Color = color;
             PlacedPiece = placedPiece;
-            RotatedRight = rotatedRight;
+            Clockwise = clockwise;
+            RotateIndex = rotateIndex;
         }
 
         public Color Color { get; }
         public Square PlacedPiece { get; }
-        public bool RotatedRight { get; }
+        public int RotateIndex { get; }
+        public bool Clockwise { get; }
     }
 }
