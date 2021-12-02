@@ -48,7 +48,7 @@ namespace Pentago.API
             app.UseAuthorization();
 
             app.UseCors(options => options.WithOrigins("https://localhost:5001")
-                .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                .AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
