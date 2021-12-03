@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/4823a973-7bfa-47c5-bdfb-a813f1ea353d/resourceGroups/pentago-org/providers/Microsoft.Web/sites/pentago-org",
+  "appService.deploySubpath": "."
+}
