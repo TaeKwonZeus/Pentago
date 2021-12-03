@@ -1,4 +1,3 @@
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -41,7 +40,8 @@ namespace Pentago.API.Controllers.Auth
                 return;
             }
 
-            command.CommandText = @"INSERT INTO users (username, normalized_username, email, password_hash, glicko_rating, glicko_rd)
+            command.CommandText =
+                @"INSERT INTO users (username, normalized_username, email, password_hash, glicko_rating, glicko_rd)
                 VALUES (@username, @normalized_username, @email, @password_hash, 800, 350);";
             command.Parameters.Clear();
             command.Parameters.AddWithValue("@username", username);
@@ -52,7 +52,7 @@ namespace Pentago.API.Controllers.Auth
             await command.ExecuteNonQueryAsync();
 
             await connection.CloseAsync();
-            
+
             HttpContext.Response.StatusCode = 200;
         }
 
