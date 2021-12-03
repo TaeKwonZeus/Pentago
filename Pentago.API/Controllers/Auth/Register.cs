@@ -3,22 +3,21 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Pentago.API.Data;
-using Pentago.API.Data.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace Pentago.API.Controllers.Auth
 {
     [Route("/auth/[controller]")]
     public class Register : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IConfiguration _configuration;
 
-        public Register(ApplicationDbContext dbContext)
+        public Register(IConfiguration configuration)
         {
-            _dbContext = dbContext;
+            _configuration = configuration;
         }
-
+        
+        /*
         [HttpPost]
         public async Task Post([FromBody] Model model)
         {
@@ -44,6 +43,15 @@ namespace Pentago.API.Controllers.Auth
             await _dbContext.SaveChangesAsync();
 
             HttpContext.Response.StatusCode = 200;
+        }
+        */
+
+        [HttpPost]
+        public async Task Post([FromBody] Model model)
+        {
+            var (username, email, password) = model;
+            
+            
         }
 
         private static string Sha256Hash(string value)
