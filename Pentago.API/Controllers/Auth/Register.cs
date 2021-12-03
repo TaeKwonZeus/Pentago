@@ -1,8 +1,10 @@
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 
 namespace Pentago.API.Controllers.Auth
@@ -16,42 +18,42 @@ namespace Pentago.API.Controllers.Auth
         {
             _configuration = configuration;
         }
-        
-        /*
+
         [HttpPost]
         public async Task Post([FromBody] Model model)
         {
             var (username, email, password) = model;
 
-            var user = new User
-            {
-                Username = username,
-                NormalizedUsername = username.Normalize(),
-                Email = email,
-                PasswordHash = Sha256Hash(password),
-                GlickoRating = 800,
-                GlickoRd = 350
-            };
+            await using var connection = new SqliteConnection(_configuration.GetConnectionString("App"));
+            await connection.OpenAsync();
 
-            if (await _dbContext.Users.AnyAsync(u => u.Email == email || u.NormalizedUsername == username.Normalize()))
+            var command =
+                new SqliteCommand("SELECT 1 FROM users WHERE email = @email OR normalized_username = @username",
+                    connection);
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@username", username.Normalize());
+
+            var exists = (long) (command.ExecuteScalar() ?? 0);
+
+            if (exists > 0)
             {
                 HttpContext.Response.StatusCode = 409;
                 return;
             }
 
-            await _dbContext.Users.AddAsync(user);
-            await _dbContext.SaveChangesAsync();
+            command.CommandText = @"INSERT INTO users (username, normalized_username, email, password_hash, glicko_rating, glicko_rd)
+                VALUES (@username, @normalized_username, @email, @password_hash, 800, 350);";
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@normalized_username", username.Normalize());
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@password_hash", Sha256Hash(password));
 
+            await command.ExecuteNonQueryAsync();
+
+            await connection.CloseAsync();
+            
             HttpContext.Response.StatusCode = 200;
-        }
-        */
-
-        [HttpPost]
-        public async Task Post([FromBody] Model model)
-        {
-            var (username, email, password) = model;
-            
-            
         }
 
         private static string Sha256Hash(string value)

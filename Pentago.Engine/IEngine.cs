@@ -1,5 +1,3 @@
-using System.Data.SqlClient;
-
 namespace Pentago.Engine
 {
     public interface IEngine
@@ -8,6 +6,9 @@ namespace Pentago.Engine
 
         public Move BestMove(Board position);
 
-        public static IEngine Instance(string connectionString) => null;
+        public static IEngine Instance(string connectionString)
+        {
+            return null;
+        }
     }
 }
