@@ -8,7 +8,7 @@ namespace Pentago.Engine
 
         public static IEngine Instance(string connectionString)
         {
-            return null;
+            return new Engine(connectionString);
         }
     }
 }

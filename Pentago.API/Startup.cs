@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Pentago.Engine;
 
 namespace Pentago.API
 {
@@ -25,6 +26,7 @@ namespace Pentago.API
             });
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddCors();
+            services.AddSingleton(IEngine.Instance(Configuration.GetConnectionString("Engine")));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
