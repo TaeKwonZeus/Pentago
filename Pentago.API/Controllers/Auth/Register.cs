@@ -58,8 +58,6 @@ namespace Pentago.API.Controllers.Auth
 
         private static string Sha256Hash(string value)
         {
-            var sb = new StringBuilder();
-
             using var hash = SHA256.Create();
 
             return string.Concat(hash
