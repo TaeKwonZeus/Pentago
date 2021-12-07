@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,7 +33,7 @@ namespace Pentago.API.Controllers.Auth
             command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@username", username.Normalize());
 
-            var exists = (long) (command.ExecuteScalar() ?? 0);
+            var exists = Convert.ToInt32(command.ExecuteScalar() ?? 0);
 
             if (exists > 0)
             {
