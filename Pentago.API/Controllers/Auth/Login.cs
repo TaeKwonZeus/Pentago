@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Pentago.API.Controllers.Auth
 {
-    [Route("[controller]")]
+    [Route("/auth/[controller]")]
     public class Login : Controller
     {
         private readonly IConfiguration _configuration;
@@ -21,8 +21,8 @@ namespace Pentago.API.Controllers.Auth
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<string> Get([FromBody] LoginModel model)
+        [HttpPost]
+        public async Task<string> Post([FromBody] LoginModel model)
         {
             var (usernameOrEmail, password) = model;
 
@@ -33,13 +33,13 @@ namespace Pentago.API.Controllers.Auth
                 new SQLiteCommand(
                     @"SELECT id, api_key_hash
                     FROM users
-                    WHERE normalized_username = @usernameOrEmail
-                      OR email = @usernameOrEmail
-                        AND password_hash = @passwordHash
+                    WHERE (normalized_username = @usernameOrEmail OR email = @usernameOrEmail)
+                      AND password_hash = @passwordHash
                     LIMIT 1;",
                     connection);
-            command.Parameters.AddWithValue("@username", usernameOrEmail.Normalize());
+            command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Normalize());
             command.Parameters.AddWithValue("@passwordHash", Sha256Hash(password));
+            _logger.LogInformation(command.CommandText);
 
             try
             {
