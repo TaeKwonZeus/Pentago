@@ -1,4 +1,6 @@
 using System;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Pentago.API.Controllers.Auth
 {
@@ -13,10 +16,12 @@ namespace Pentago.API.Controllers.Auth
     public class Register : Controller
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<Register> _logger;
 
-        public Register(IConfiguration configuration)
+        public Register(IConfiguration configuration, ILogger<Register> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -33,11 +38,21 @@ namespace Pentago.API.Controllers.Auth
             command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@username", username.Normalize());
 
-            var exists = Convert.ToInt32(command.ExecuteScalar() ?? 0);
-
-            if (exists > 0)
+            try
             {
-                HttpContext.Response.StatusCode = 409;
+                var exists = Convert.ToInt32(command.ExecuteScalar() ?? 0);
+                if (exists > 0)
+                {
+                    Response.StatusCode = 409;
+                    await connection.CloseAsync();
+                    return;
+                }
+            }
+            catch (SQLiteException e)
+            {
+                _logger.LogError(e, e.Message);
+                Response.StatusCode = 500;
+                await connection.CloseAsync();
                 return;
             }
 
@@ -47,14 +62,24 @@ namespace Pentago.API.Controllers.Auth
             command.Parameters.Clear();
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@normalized_username", username.Normalize());
-            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@email", email.Normalize());
             command.Parameters.AddWithValue("@password_hash", Sha256Hash(password));
 
-            await command.ExecuteNonQueryAsync();
-
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (SqliteException e)
+            {
+                _logger.LogError(e, e.Message);
+                Response.StatusCode = 500;
+                await connection.CloseAsync();
+                return;
+            }
+            
             await connection.CloseAsync();
-
-            HttpContext.Response.StatusCode = 200;
+            
+            _logger.LogInformation("User {User} registered", model.Username);
         }
 
         private static string Sha256Hash(string value)
