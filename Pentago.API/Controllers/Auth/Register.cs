@@ -25,7 +25,7 @@ namespace Pentago.API.Controllers.Auth
         }
 
         [HttpPost]
-        public async Task Post([FromBody] Model model)
+        public async Task Post([FromBody] RegisterModel model)
         {
             var (username, email, password) = model;
 
@@ -91,6 +91,6 @@ namespace Pentago.API.Controllers.Auth
                 .Select(item => item.ToString("x2")));
         }
 
-        public record Model(string Username, string Email, string Password);
+        public record RegisterModel(string Username, string Email, string Password);
     }
 }

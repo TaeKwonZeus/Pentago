@@ -22,7 +22,7 @@ namespace Pentago.API.Controllers.Auth
         }
 
         [HttpGet]
-        public async Task<string> Get([FromBody] Model model)
+        public async Task<string> Get([FromBody] LoginModel model)
         {
             var (usernameOrEmail, password) = model;
 
@@ -83,6 +83,6 @@ namespace Pentago.API.Controllers.Auth
                 .Select(item => item.ToString("x2")));
         }
 
-        public record Model(string UsernameOrEmail, string Password);
+        public record LoginModel(string UsernameOrEmail, string Password);
     }
 }
