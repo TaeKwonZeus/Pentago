@@ -56,7 +56,7 @@ namespace Pentago.API.Controllers.Auth
                 var apiKeyOrdinal = reader.GetOrdinal("api_key_hash");
 
                 var id = reader.GetInt32(idOrdinal);
-                if (await reader.IsDBNullAsync(apiKeyOrdinal))
+                if (!await reader.IsDBNullAsync(apiKeyOrdinal))
                 {
                     var apiKeyHash = reader.GetString(apiKeyOrdinal);
                     _logger.LogInformation("User {User} logged in", usernameOrEmail);
