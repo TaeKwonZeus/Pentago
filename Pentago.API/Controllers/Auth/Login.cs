@@ -1,3 +1,4 @@
+using System;
 using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
@@ -39,7 +40,6 @@ namespace Pentago.API.Controllers.Auth
                     connection);
             command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Normalize());
             command.Parameters.AddWithValue("@passwordHash", Sha256Hash(password));
-            _logger.LogInformation(command.CommandText);
 
             try
             {
@@ -62,16 +62,36 @@ namespace Pentago.API.Controllers.Auth
                     _logger.LogInformation("User {User} logged in", usernameOrEmail);
                     return apiKeyHash;
                 }
+
+                var apiKey = GenerateApiKey();
+
+                command.CommandText = @"UPDATE users SET api_key_hash = @apiKeyHash WHERE id = @id;";
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@apiKeyHash", Sha256Hash(apiKey));
+
+                await command.ExecuteNonQueryAsync();
+                
+                return apiKey;
             }
             catch (SQLiteException e)
             {
-                _logger.LogError(e, e.Message);
+                _logger.LogError(e, "POST /auth/register");
                 Response.StatusCode = 500;
                 await connection.CloseAsync();
                 return e.Message;
             }
+        }
 
-            return "";
+        private static string GenerateApiKey()
+        {
+            var key = new byte[32];
+
+            using var generator = RandomNumberGenerator.Create();
+
+            generator.GetBytes(key);
+
+            return Convert.ToBase64String(key);
         }
 
         private static string Sha256Hash(string value)

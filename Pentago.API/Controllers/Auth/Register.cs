@@ -1,5 +1,4 @@
 using System;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
@@ -50,7 +49,7 @@ namespace Pentago.API.Controllers.Auth
             }
             catch (SQLiteException e)
             {
-                _logger.LogError(e, e.Message);
+                _logger.LogError(e, "POST /auth/register");
                 Response.StatusCode = 500;
                 await connection.CloseAsync();
                 return;
@@ -71,7 +70,7 @@ namespace Pentago.API.Controllers.Auth
             }
             catch (SqliteException e)
             {
-                _logger.LogError(e, e.Message);
+                _logger.LogError(e, "POST /auth/register");
                 Response.StatusCode = 500;
                 await connection.CloseAsync();
                 return;
