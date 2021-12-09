@@ -43,24 +43,28 @@ namespace Pentago.API.Controllers.Auth
 
             try
             {
-                var reader = await command.ExecuteReaderAsync();
-                if (!await reader.ReadAsync())
-                {
-                    _logger.LogInformation("User {User} not found", usernameOrEmail);
-                    Response.StatusCode = 404;
-                    await connection.CloseAsync();
-                    return "User not found";
-                }
+                int id;
 
-                var idOrdinal = reader.GetOrdinal("id");
-                var apiKeyOrdinal = reader.GetOrdinal("api_key_hash");
-
-                var id = reader.GetInt32(idOrdinal);
-                if (!await reader.IsDBNullAsync(apiKeyOrdinal))
+                await using (var reader = await command.ExecuteReaderAsync())
                 {
-                    var apiKeyHash = reader.GetString(apiKeyOrdinal);
-                    _logger.LogInformation("User {User} logged in", usernameOrEmail);
-                    return apiKeyHash;
+                    if (!await reader.ReadAsync())
+                    {
+                        _logger.LogInformation("User {User} not found", usernameOrEmail);
+                        Response.StatusCode = 404;
+                        await connection.CloseAsync();
+                        return "User not found";
+                    }
+
+                    var idOrdinal = reader.GetOrdinal("id");
+                    var apiKeyOrdinal = reader.GetOrdinal("api_key_hash");
+
+                    id = reader.GetInt32(idOrdinal);
+                    if (!await reader.IsDBNullAsync(apiKeyOrdinal))
+                    {
+                        var apiKeyHash = reader.GetString(apiKeyOrdinal);
+                        _logger.LogInformation("User {User} logged in", usernameOrEmail);
+                        return apiKeyHash;
+                    }
                 }
 
                 var apiKey = GenerateApiKey();
@@ -71,7 +75,7 @@ namespace Pentago.API.Controllers.Auth
                 command.Parameters.AddWithValue("@apiKeyHash", Sha256Hash(apiKey));
 
                 await command.ExecuteNonQueryAsync();
-                
+
                 return apiKey;
             }
             catch (SQLiteException e)
