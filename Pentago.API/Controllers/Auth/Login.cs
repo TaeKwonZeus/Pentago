@@ -39,7 +39,7 @@ namespace Pentago.API.Controllers.Auth
                     LIMIT 1;",
                     connection);
             command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Normalize());
-            command.Parameters.AddWithValue("@passwordHash", Sha256Hash(password));
+            command.Parameters.AddWithValue("@passwordHash", Common.Sha256Hash(password));
 
             try
             {
@@ -56,23 +56,16 @@ namespace Pentago.API.Controllers.Auth
                     }
 
                     var idOrdinal = reader.GetOrdinal("id");
-                    var apiKeyOrdinal = reader.GetOrdinal("api_key_hash");
 
                     id = reader.GetInt32(idOrdinal);
-                    if (!await reader.IsDBNullAsync(apiKeyOrdinal))
-                    {
-                        var apiKeyHash = reader.GetString(apiKeyOrdinal);
-                        _logger.LogInformation("User {User} logged in", usernameOrEmail);
-                        return apiKeyHash;
-                    }
                 }
 
-                var apiKey = GenerateApiKey();
+                var apiKey = Common.GenerateApiKey();
 
                 command.CommandText = @"UPDATE users SET api_key_hash = @apiKeyHash WHERE id = @id;";
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@id", id);
-                command.Parameters.AddWithValue("@apiKeyHash", Sha256Hash(apiKey));
+                command.Parameters.AddWithValue("@apiKeyHash", Common.Sha256Hash(apiKey));
 
                 await command.ExecuteNonQueryAsync();
 
@@ -85,26 +78,6 @@ namespace Pentago.API.Controllers.Auth
                 await connection.CloseAsync();
                 return e.Message;
             }
-        }
-
-        private static string GenerateApiKey()
-        {
-            var key = new byte[32];
-
-            using var generator = RandomNumberGenerator.Create();
-
-            generator.GetBytes(key);
-
-            return Convert.ToBase64String(key);
-        }
-
-        private static string Sha256Hash(string value)
-        {
-            using var hash = SHA256.Create();
-
-            return string.Concat(hash
-                .ComputeHash(Encoding.UTF8.GetBytes(value))
-                .Select(item => item.ToString("x2")));
         }
 
         public record LoginModel(string UsernameOrEmail, string Password);

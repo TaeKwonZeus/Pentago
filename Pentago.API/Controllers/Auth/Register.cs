@@ -1,8 +1,5 @@
 using System;
 using System.Data.SQLite;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
@@ -62,7 +59,7 @@ namespace Pentago.API.Controllers.Auth
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@normalized_username", username.Normalize());
             command.Parameters.AddWithValue("@email", email.Normalize());
-            command.Parameters.AddWithValue("@password_hash", Sha256Hash(password));
+            command.Parameters.AddWithValue("@password_hash", Common.Sha256Hash(password));
 
             try
             {
@@ -79,15 +76,6 @@ namespace Pentago.API.Controllers.Auth
             await connection.CloseAsync();
             
             _logger.LogInformation("User {User} registered", model.Username);
-        }
-
-        private static string Sha256Hash(string value)
-        {
-            using var hash = SHA256.Create();
-
-            return string.Concat(hash
-                .ComputeHash(Encoding.UTF8.GetBytes(value))
-                .Select(item => item.ToString("x2")));
         }
 
         public record RegisterModel(string Username, string Email, string Password);
