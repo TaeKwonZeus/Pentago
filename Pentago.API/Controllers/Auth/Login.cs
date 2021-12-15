@@ -35,7 +35,7 @@ namespace Pentago.API.Controllers.Auth
                     LIMIT 1;",
                     connection);
             command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Trim().Normalize().ToLower());
-            command.Parameters.AddWithValue("@passwordHash", Common.Sha256Hash(password));
+            command.Parameters.AddWithValue("@passwordHash", Util.Sha256Hash(password));
 
             try
             {
@@ -56,12 +56,12 @@ namespace Pentago.API.Controllers.Auth
                     id = reader.GetInt32(idOrdinal);
                 }
 
-                var apiKey = Common.GenerateApiKey();
+                var apiKey = Util.GenerateApiKey();
 
                 command.CommandText = @"UPDATE users SET api_key_hash = @apiKeyHash WHERE id = @id;";
                 command.Parameters.Clear();
                 command.Parameters.AddWithValue("@id", id);
-                command.Parameters.AddWithValue("@apiKeyHash", Common.Sha256Hash(apiKey));
+                command.Parameters.AddWithValue("@apiKeyHash", Util.Sha256Hash(apiKey));
 
                 await command.ExecuteNonQueryAsync();
 

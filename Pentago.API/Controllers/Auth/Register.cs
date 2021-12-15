@@ -59,7 +59,7 @@ namespace Pentago.API.Controllers.Auth
             command.Parameters.AddWithValue("@username", username);
             command.Parameters.AddWithValue("@normalized_username", username.Trim().Normalize().ToLower());
             command.Parameters.AddWithValue("@email", email.Trim().Normalize().ToLower());
-            command.Parameters.AddWithValue("@password_hash", Common.Sha256Hash(password));
+            command.Parameters.AddWithValue("@password_hash", Util.Sha256Hash(password));
 
             try
             {

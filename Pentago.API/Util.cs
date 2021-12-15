@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pentago.API
 {
-    public static class Common
+    public static class Util
     {
         public static string Sha256Hash(string value)
         {
