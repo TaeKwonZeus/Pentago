@@ -26,5 +26,7 @@ namespace Pentago.API
 
             return Convert.ToBase64String(key);
         }
+
+        public static string ToStandard(this string input) => input.Trim().Normalize().ToLower();
     }
 }

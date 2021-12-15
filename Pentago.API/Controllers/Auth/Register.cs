@@ -31,8 +31,8 @@ namespace Pentago.API.Controllers.Auth
             var command =
                 new SqliteCommand("SELECT 1 FROM users WHERE email = @email OR normalized_username = @username",
                     connection);
-            command.Parameters.AddWithValue("@email", email.Trim().Normalize().ToLower());
-            command.Parameters.AddWithValue("@username", username.Trim().Normalize().ToLower());
+            command.Parameters.AddWithValue("@email", email.ToStandard());
+            command.Parameters.AddWithValue("@username", username.ToStandard());
 
             try
             {
@@ -57,8 +57,8 @@ namespace Pentago.API.Controllers.Auth
                 VALUES (@username, @normalized_username, @email, @password_hash, 800, 350);";
             command.Parameters.Clear();
             command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@normalized_username", username.Trim().Normalize().ToLower());
-            command.Parameters.AddWithValue("@email", email.Trim().Normalize().ToLower());
+            command.Parameters.AddWithValue("@normalized_username", username.ToStandard());
+            command.Parameters.AddWithValue("@email", email.ToStandard());
             command.Parameters.AddWithValue("@password_hash", Util.Sha256Hash(password));
 
             try

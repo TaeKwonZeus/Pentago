@@ -34,7 +34,7 @@ namespace Pentago.API.Controllers.Auth
                       AND password_hash = @passwordHash
                     LIMIT 1;",
                     connection);
-            command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Trim().Normalize().ToLower());
+            command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.ToStandard());
             command.Parameters.AddWithValue("@passwordHash", Util.Sha256Hash(password));
 
             try
