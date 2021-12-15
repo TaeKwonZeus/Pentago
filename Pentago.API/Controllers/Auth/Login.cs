@@ -1,8 +1,4 @@
-using System;
 using System.Data.SQLite;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +34,7 @@ namespace Pentago.API.Controllers.Auth
                       AND password_hash = @passwordHash
                     LIMIT 1;",
                     connection);
-            command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Normalize());
+            command.Parameters.AddWithValue("@usernameOrEmail", usernameOrEmail.Trim().Normalize().ToLower());
             command.Parameters.AddWithValue("@passwordHash", Common.Sha256Hash(password));
 
             try
