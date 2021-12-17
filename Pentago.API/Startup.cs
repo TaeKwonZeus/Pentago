@@ -6,48 +6,44 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Pentago.Engine;
 
-namespace Pentago.API
+namespace Pentago.API;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
+        Configuration = configuration;
+    }
+
+    private IConfiguration Configuration { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+        services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Pentago.API", Version = "v1"}); });
+        services.AddRouting(options => options.LowercaseUrls = true);
+        services.AddCors();
+        services.AddSingleton(IEngine.Instance(Configuration.GetConnectionString("Engine")));
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
         {
-            Configuration = configuration;
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pentago.API v1"));
         }
 
-        private IConfiguration Configuration { get; }
+        app.UseHttpsRedirection();
 
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Pentago.API", Version = "v1"});
-            });
-            services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddCors();
-            services.AddSingleton(IEngine.Instance(Configuration.GetConnectionString("Engine")));
-        }
+        app.UseRouting();
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pentago.API v1"));
-            }
+        app.UseAuthorization();
 
-            app.UseHttpsRedirection();
+        app.UseCors(options => options.AllowAnyOrigin()
+            .AllowAnyMethod().AllowAnyHeader());
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseCors(options => options.AllowAnyOrigin()
-                .AllowAnyMethod().AllowAnyHeader());
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-        }
+        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
     }
 }

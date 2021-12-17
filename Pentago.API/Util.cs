@@ -3,30 +3,32 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Pentago.API
+namespace Pentago.API;
+
+public static class Util
 {
-    public static class Util
+    public static string Sha256Hash(string value)
     {
-        public static string Sha256Hash(string value)
-        {
-            using var hash = SHA256.Create();
+        using var hash = SHA256.Create();
 
-            return string.Concat(hash
-                .ComputeHash(Encoding.UTF8.GetBytes(value))
-                .Select(item => item.ToString("x2")));
-        }
-        
-        public static string GenerateApiKey()
-        {
-            var key = new byte[32];
+        return string.Concat(hash
+            .ComputeHash(Encoding.UTF8.GetBytes(value))
+            .Select(item => item.ToString("x2")));
+    }
 
-            using var generator = RandomNumberGenerator.Create();
+    public static string GenerateApiKey()
+    {
+        var key = new byte[32];
 
-            generator.GetBytes(key);
+        using var generator = RandomNumberGenerator.Create();
 
-            return Convert.ToBase64String(key);
-        }
+        generator.GetBytes(key);
 
-        public static string ToStandard(this string input) => input.Trim().Normalize().ToLower();
+        return Convert.ToBase64String(key);
+    }
+
+    public static string ToStandard(this string input)
+    {
+        return input.Trim().Normalize().ToLower();
     }
 }

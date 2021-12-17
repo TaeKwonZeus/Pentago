@@ -1,14 +1,13 @@
-namespace Pentago.Engine
+namespace Pentago.Engine;
+
+public interface IEngine
 {
-    public interface IEngine
+    public Evaluation Evaluate(Board position);
+
+    public Move BestMove(Board position);
+
+    public static IEngine Instance(string connectionString)
     {
-        public Evaluation Evaluate(Board position);
-
-        public Move BestMove(Board position);
-
-        public static IEngine Instance(string connectionString)
-        {
-            return new Engine(connectionString);
-        }
+        return new Engine(connectionString);
     }
 }

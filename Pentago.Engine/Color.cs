@@ -1,8 +1,7 @@
-namespace Pentago.Engine
+namespace Pentago.Engine;
+
+public enum Color
 {
-    public enum Color
-    {
-        White,
-        Black
-    }
+    White,
+    Black
 }
